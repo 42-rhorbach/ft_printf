@@ -6,7 +6,7 @@
 #    By: rhorbach <rhorbach@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/10/14 12:49:02 by rhorbach      #+#    #+#                  #
-#    Updated: 2022/11/01 16:32:15 by rhorbach      ########   odam.nl          #
+#    Updated: 2023/01/23 16:01:33 by rhorbach      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,8 @@ CFILES =						\
 	ft_isdigit.c				\
 	ft_isprint.c				\
 	ft_itoa.c					\
+	ft_itoh.c					\
+	ft_itoh.c					\
 	ft_memchr.c					\
 	ft_memcmp.c					\
 	ft_memcpy.c					\
@@ -33,6 +35,7 @@ CFILES =						\
 	ft_putendl_fd.c				\
 	ft_putnbr_fd.c				\
 	ft_putstr_fd.c				\
+	ft_putunbr_fd.c				\
 	ft_split.c					\
 	ft_strchr.c					\
 	ft_strdup.c					\

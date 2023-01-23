@@ -6,8 +6,8 @@
 /*   By: rhorbach <rhorbach@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/09 15:08:25 by rhorbach      #+#    #+#                 */
-/*   Updated: 2023/01/09 15:42:06 by rhorbach      ########   odam.nl         */
+/*   Updated: 2023/01/23 13:51:00 by rhorbach      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-int ft_printf(const char *, );
+int ft_printf(const char *, ...);

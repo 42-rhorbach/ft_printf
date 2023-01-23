@@ -6,7 +6,7 @@
 /*   By: rhorbach <rhorbach@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/09 14:14:42 by rhorbach      #+#    #+#                 */
-/*   Updated: 2023/01/18 16:43:05 by rhorbach      ########   odam.nl         */
+/*   Updated: 2023/01/23 13:47:00 by rhorbach      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 #include <stdarg.h>
 #include <unistd.h>
 
-int	conv_c(va_list ap) //write can fail
+int	conv_c(va_list ap)
 {
 	char	c;
 
 	c = va_arg(ap, char);
-	ft_putchar_fd(c, STDOUT_FILENO);
-	return (0);
+	return (ft_putchar_fd(c, STDOUT_FILENO));
 }
 
 int	conv_s(va_list ap)
@@ -28,8 +27,7 @@ int	conv_s(va_list ap)
 	char	*s;
 
 	s = va_arg(ap, char *);
-	ft_putstr_fd(s, STDOUT_FILENO);
-	return (0);
+	return (ft_putstr_fd(s, STDOUT_FILENO));
 }
 
 int	conv_p(va_list ap) //WIP
@@ -45,8 +43,7 @@ int	conv_i(va_list ap)
 	int		i;
 
 	i = va_arg(ap, int);
-	ft_putstr_fd(ft_itoa(i), STDOUT_FILENO);
-	return (0);
+	return (ft_putnbr_fd(i, STDOUT_FILENO));
 }
 
 int	conv_u(va_list ap) //WIP
@@ -54,8 +51,7 @@ int	conv_u(va_list ap) //WIP
 	unsigned int	u;
 
 	u = va_arg(ap, unsigned int);
-	ft_putstr_fd(ft_itoa(u), STDOUT_FILENO);
-	return (0);
+	return (ft_putunbr_fd(u, STDOUT_FILENO));
 }
 
 int	conv_lowerx(va_list ap) //WIP
@@ -97,7 +93,7 @@ int call_jump_table(char c, va_list ap)
 	['%'] = &conv_percent
 	};
 
-	if (ft_strchr("cspdiuxX%", c) != NULL)
+	if (ft_strchr("cspdiuxX%", c) != NULL) //output must be recognised as -1
 	{
 		return (jump_table[c](ap));
 	}
@@ -110,28 +106,40 @@ int	ft_printf(const char *fmt, ...)
 {
 	va_list	ap;
 	int		i;
-	char	c;
+	int		count;
+	int		out;
+
 
 	i = 0;
+	count = 0;
 	va_start(ap, fmt);
 	while (fmt[i] != '\0')
 	{
-		c = fmt[i];
-		if (c == '%')
+		if (fmt[i] == '%')
 		{
 			i++;
-			call_jump_table(fmt[i], ap);
-			// if return value != 0 error
+			out = call_jump_table(fmt[i], ap);
+			if (out < 0)
+				return (-1);
+			count += out;
 		}
 		else
-			ft_putchar_fd(fmt[i], STDOUT_FILENO);
+		{
+			if (ft_putchar_fd(fmt[i], STDOUT_FILENO) < 0)
+				return (-1);
+			count++;
+		}
 		i++;
 	}
 	va_end(ap);
+	return (count);
 }
+
+#define ARGS ("%c hello %s %i %u %x \n", 'a', "bye", 346, 4294967297, 0xaf54a)
 
 int main (void)
 {
-	ft_printf("%c hello %s %i %u %x \n", 'a', "bye", 346, -200, 0xaf54a);
-	printf("%c hello %s %i %u %x \n", 'a', "bye", 346, -200, 0xaf54a);
+	int ft = ft_printf ARGS;
+	int reg = printf ARGS;
+	printf("ft: %i\nreg: %i\n", ft, reg);
 }

@@ -6,13 +6,14 @@
 /*   By: rhorbach <rhorbach@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/05 14:46:58 by rhorbach      #+#    #+#                 */
-/*   Updated: 2022/11/01 15:26:57 by rhorbach      ########   odam.nl         */
+/*   Updated: 2023/01/23 16:00:41 by rhorbach      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 # include <stdlib.h>
+# include <unistd.h>
 
 int		ft_atoi(const char *str);
 void	ft_bzero(void *ptr, size_t n);
@@ -23,15 +24,18 @@ int		ft_isascii(int arg);
 int		ft_isdigit(int arg);
 int		ft_isprint(int arg);
 char	*ft_itoa(int n);
+char	*ft_itob(int n);
+char	*ft_itoh(int n);
 void	*ft_memchr(const void *s, int c, size_t n);
 int		ft_memcmp(const void *str1, const void *str2, size_t n);
 void	*ft_memcpy(void *pdst, const void *psrc, size_t n);
 void	*ft_memmove(void *pdst, const void *psrc, size_t len);
 void	*ft_memset(void *ptr, int c, size_t n);
-void	ft_putchar_fd(char c, int fd);
-void	ft_putendl_fd(char *s, int fd);
-void	ft_putnbr_fd(int n, int fd);
-void	ft_putstr_fd(char *s, int fd);
+ssize_t	ft_putchar_fd(char c, int fd);
+ssize_t	ft_putendl_fd(char *s, int fd);
+ssize_t	ft_putnbr_fd(int n, int fd);
+ssize_t	ft_putstr_fd(char *s, int fd);
+ssize_t	ft_putunbr_fd(unsigned int n, int fd);
 char	**ft_split(char const *s, char c);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *str);
