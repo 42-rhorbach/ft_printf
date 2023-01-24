@@ -6,7 +6,7 @@
 /*   By: rhorbach <rhorbach@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/09 14:14:42 by rhorbach      #+#    #+#                 */
-/*   Updated: 2023/01/23 13:47:00 by rhorbach      ########   odam.nl         */
+/*   Updated: 2023/01/24 17:04:08 by rhorbach      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 #include <stdarg.h>
 #include <unistd.h>
 
+// va_arg cannot accept char
 int	conv_c(va_list ap)
 {
 	char	c;
 
-	c = va_arg(ap, char);
+	c = va_arg(ap, int);
 	return (ft_putchar_fd(c, STDOUT_FILENO));
 }
 
@@ -27,15 +28,23 @@ int	conv_s(va_list ap)
 	char	*s;
 
 	s = va_arg(ap, char *);
+	if (s == NULL)
+		return (ft_putstr_fd("(null)", STDOUT_FILENO));
 	return (ft_putstr_fd(s, STDOUT_FILENO));
 }
 
-int	conv_p(va_list ap) //WIP
+int	conv_p(va_list ap)
 {
 	void	*p;
+	int		count;
 
 	p = va_arg(ap, void *);
-	return (0);
+	if (ft_putstr_fd("0x", STDOUT_FILENO) < 0)
+		return (-1);
+	count = ft_puthexnbr_fd((unsigned long)p, false, STDOUT_FILENO);
+	if (count < 0)
+		return (-1);
+	return (count + 2);
 }
 
 int	conv_i(va_list ap)
@@ -46,7 +55,7 @@ int	conv_i(va_list ap)
 	return (ft_putnbr_fd(i, STDOUT_FILENO));
 }
 
-int	conv_u(va_list ap) //WIP
+int	conv_u(va_list ap)
 {
 	unsigned int	u;
 
@@ -54,27 +63,26 @@ int	conv_u(va_list ap) //WIP
 	return (ft_putunbr_fd(u, STDOUT_FILENO));
 }
 
-int	conv_lowerx(va_list ap) //WIP
+int	conv_lowerx(va_list ap)
 {
 	unsigned int	x;
 
 	x = va_arg(ap, unsigned int);
-	return (0);
+	return (ft_puthexnbr_fd(x, false, STDOUT_FILENO));
 }
 
-int	conv_upperx(va_list ap) //WIP
+int	conv_upperx(va_list ap)
 {
 	unsigned int	x;
 
 	x = va_arg(ap, unsigned int);
-	return (0);
+	return (ft_puthexnbr_fd(x, true, STDOUT_FILENO));
 }
 
-int	conv_percent(va_list ap) //WIP
+int	conv_percent(va_list ap)
 {
-	// (void)ap;
-	//ft_putchar_fd('%');
-	return (0);
+	(void)ap;
+	return (ft_putchar_fd('%', STDOUT_FILENO));
 }
 
 typedef int	(*t_conversion_function)(va_list);
@@ -93,14 +101,11 @@ int call_jump_table(char c, va_list ap)
 	['%'] = &conv_percent
 	};
 
-	if (ft_strchr("cspdiuxX%", c) != NULL) //output must be recognised as -1
-	{
-		return (jump_table[c](ap));
-	}
+	if (c != '\0' && ft_strchr("cspdiuxX%", c) != NULL)
+		return (jump_table[(int)c](ap));
 	else
 		return (-1);
 }
-
 
 int	ft_printf(const char *fmt, ...)
 {
@@ -108,7 +113,6 @@ int	ft_printf(const char *fmt, ...)
 	int		i;
 	int		count;
 	int		out;
-
 
 	i = 0;
 	count = 0;
@@ -135,11 +139,12 @@ int	ft_printf(const char *fmt, ...)
 	return (count);
 }
 
-#define ARGS ("%c hello %s %i %u %x \n", 'a', "bye", 346, 4294967297, 0xaf54a)
-
 int main (void)
 {
-	int ft = ft_printf ARGS;
+	int address = 2;
+	#define ARGS ("%c hello %s %p %i %u%x %X %% \n%", 'a', NULL, -0x10000000000, -0x80000000, 76579, -1, 0xAf54A)
 	int reg = printf ARGS;
+	fflush(NULL);
+	int ft = ft_printf ARGS;
 	printf("ft: %i\nreg: %i\n", ft, reg);
 }

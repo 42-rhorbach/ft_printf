@@ -6,7 +6,7 @@
 /*   By: rhorbach <rhorbach@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/23 14:37:18 by rhorbach      #+#    #+#                 */
-/*   Updated: 2023/01/23 15:05:05 by rhorbach      ########   odam.nl         */
+/*   Updated: 2023/01/24 13:24:50 by rhorbach      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,4 @@ char	*ft_itoh(int n)
 	}
 	ptr[i] = s[n % 16];
 	return (ptr);
-}
-
-int	main(void)
-{
-	printf("%s", ft_itoh(0x464a5ef));
 }

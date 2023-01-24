@@ -6,7 +6,7 @@
 /*   By: rhorbach <rhorbach@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/05 14:46:58 by rhorbach      #+#    #+#                 */
-/*   Updated: 2023/01/23 16:00:41 by rhorbach      ########   odam.nl         */
+/*   Updated: 2023/01/24 15:52:43 by rhorbach      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBFT_H
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdbool.h>
 
 int		ft_atoi(const char *str);
 void	ft_bzero(void *ptr, size_t n);
@@ -34,6 +35,7 @@ void	*ft_memset(void *ptr, int c, size_t n);
 ssize_t	ft_putchar_fd(char c, int fd);
 ssize_t	ft_putendl_fd(char *s, int fd);
 ssize_t	ft_putnbr_fd(int n, int fd);
+ssize_t	ft_puthexnbr_fd(unsigned long n, bool caps, int fd);
 ssize_t	ft_putstr_fd(char *s, int fd);
 ssize_t	ft_putunbr_fd(unsigned int n, int fd);
 char	**ft_split(char const *s, char c);
