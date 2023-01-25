@@ -1,18 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_printf.h                                        :+:    :+:            */
+/*   ft_conv_txt.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rhorbach <rhorbach@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/01/09 15:08:25 by rhorbach      #+#    #+#                 */
-/*   Updated: 2023/01/25 13:22:20 by rhorbach      ########   odam.nl         */
+/*   Created: 2023/01/25 12:58:22 by rhorbach      #+#    #+#                 */
+/*   Updated: 2023/01/25 13:26:21 by rhorbach      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include <stdarg.h>
+#include "libft.h"
 
-int	ft_printf(const char *fmt, ...);
+int	conv_c(va_list ap)
+{
+	char	c;
 
-#endif
+	c = va_arg(ap, int);
+	return (ft_putchar_fd(c, STDOUT_FILENO));
+}
+
+int	conv_s(va_list ap)
+{
+	char	*s;
+
+	s = va_arg(ap, char *);
+	if (s == NULL)
+		return (ft_putstr_fd("(null)", STDOUT_FILENO));
+	return (ft_putstr_fd(s, STDOUT_FILENO));
+}
+
+int	conv_percent(va_list ap)
+{
+	(void)ap;
+	return (ft_putchar_fd('%', STDOUT_FILENO));
+}

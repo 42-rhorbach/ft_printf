@@ -6,13 +6,13 @@
 /*   By: rhorbach <rhorbach@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/16 12:56:06 by rhorbach      #+#    #+#                 */
-/*   Updated: 2023/01/19 12:59:12 by rhorbach      ########   odam.nl         */
+/*   Updated: 2023/01/25 14:19:37 by rhorbach      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *str) //worng
+char	*ft_strdup(const char *str)
 {
 	char	*ptr;
 	size_t	count;

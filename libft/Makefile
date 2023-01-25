@@ -6,7 +6,7 @@
 #    By: rhorbach <rhorbach@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/10/14 12:49:02 by rhorbach      #+#    #+#                  #
-#    Updated: 2023/01/24 13:53:38 by rhorbach      ########   odam.nl          #
+#    Updated: 2023/01/25 13:53:23 by rhorbach      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,6 +80,14 @@ endif
 
 OBJFILES = $(addprefix $(OBJDIR)/,$(CFILES:c=o))
 
+clear_line = \e[K
+move_up = \e[A
+define prettycomp
+printf "$(1)$(clear_line)\n"
+$(1)
+printf "$(move_up)"
+endef
+
 all: $(NAME)
 
 $(NAME): $(OBJFILES)
@@ -87,7 +95,7 @@ $(NAME): $(OBJFILES)
 
 obj/%.o: %.c $(HEADERFILES)
 	@mkdir -p $(dir $@)
-	$(CC) -c $(NORMFLAGS) -o $@ $<
+	@$(call prettycomp,$(CC) -c $(NORMFLAGS) -o $@ $<)
 
 clean:
 	rm -rf $(OBJDIR)
