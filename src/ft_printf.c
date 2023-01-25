@@ -6,7 +6,7 @@
 /*   By: rhorbach <rhorbach@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/09 14:14:42 by rhorbach      #+#    #+#                 */
-/*   Updated: 2023/01/25 15:51:28 by rhorbach      ########   odam.nl         */
+/*   Updated: 2023/01/25 16:05:49 by rhorbach      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,3 @@ int	ft_printf(const char *fmt, ...)
 	va_end(ap);
 	return (count);
 }
-
-// int main (void)
-// {
-// 	int address = 2;
-// 	#define ARGS ("%c hello %s %p %i %u%x %X %% \n%", 'a', NULL, -0x10000000000, -0x80000000, 76579, -1, 0xAf54A)
-// 	int reg = printf ARGS;
-// 	fflush(NULL);
-// 	int ft = ft_printf ARGS;
-// 	printf("ft: %i\nreg: %i\n", ft, reg);
-// }
